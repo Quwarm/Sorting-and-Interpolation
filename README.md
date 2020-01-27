@@ -1,5 +1,6 @@
 # Sort-and-Interpolation
 Shell sorting and input data interpolation by the Lagrange method
+
 Program features:
 1. Add points from the console.
 2. View all points.
