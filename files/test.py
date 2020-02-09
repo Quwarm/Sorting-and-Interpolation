@@ -35,40 +35,42 @@ class LagrangeInterpolationTest(unittest.TestCase):
 
     def test_complex(self):
         global MIN_NUMBER, MAX_NUMBER, MAX_SIZE, MAX_ACCURACY
-        output_format = '{:+.' + str(MAX_ACCURACY) + 'f}*x^{}'
+        for accuracy in range(MAX_ACCURACY, MAX_ACCURACY + 2):
+            output_format = '{:+.' + str(accuracy) + 'f}*x^{}'
 
-        start, stop = MIN_NUMBER, MIN_NUMBER + MAX_SIZE
-        x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
-        y = [Decimal(MAX_NUMBER) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY), output_format.format(MAX_NUMBER, 0))
-        y = [Decimal(MIN_NUMBER) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY), output_format.format(MIN_NUMBER, 0))
+            start, stop = MIN_NUMBER, MIN_NUMBER + MAX_SIZE
+            x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
+            y = [Decimal(MAX_NUMBER) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy), output_format.format(MAX_NUMBER, 0))
+            y = [Decimal(MIN_NUMBER) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy), output_format.format(MIN_NUMBER, 0))
 
-        start, stop = MAX_NUMBER - MAX_SIZE, MAX_NUMBER
-        x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
-        y = [Decimal(MAX_NUMBER) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY), output_format.format(MAX_NUMBER, 0))
-        y = [Decimal(MIN_NUMBER) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY), output_format.format(MIN_NUMBER, 0))
+            start, stop = MAX_NUMBER - MAX_SIZE, MAX_NUMBER
+            x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
+            y = [Decimal(MAX_NUMBER) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy), output_format.format(MAX_NUMBER, 0))
+            y = [Decimal(MIN_NUMBER) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy), output_format.format(MIN_NUMBER, 0))
 
-        start, stop = MIN_NUMBER, MIN_NUMBER + MAX_SIZE / (10 ** MAX_ACCURACY)
-        x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
-        y = [Decimal(MAX_NUMBER - 10 ** (-MAX_ACCURACY)) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY),
-                         output_format.format(MAX_NUMBER - 10 ** (-MAX_ACCURACY), 0))
-        y = [Decimal(MIN_NUMBER + 10 ** (-MAX_ACCURACY)) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY),
-                         output_format.format(MIN_NUMBER + 10 ** (-MAX_ACCURACY), 0))
+            start, stop = MIN_NUMBER, MIN_NUMBER + MAX_SIZE / (10 ** accuracy)
+            x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
+            y = [Decimal(MAX_NUMBER - 10 ** (-accuracy)) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy),
+                             output_format.format(MAX_NUMBER - 10 ** (-accuracy), 0))
+            y = [Decimal(MIN_NUMBER + 10 ** (-accuracy)) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy),
+                             output_format.format(MIN_NUMBER + 10 ** (-accuracy), 0))
 
-        start, stop = MAX_NUMBER - MAX_SIZE / (10 ** MAX_ACCURACY), MAX_NUMBER
-        x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
-        y = [Decimal(MAX_NUMBER - 10 ** (-MAX_ACCURACY)) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY),
-                         output_format.format(MAX_NUMBER - 10 ** (-MAX_ACCURACY), 0))
-        y = [Decimal(MIN_NUMBER + 10 ** (-MAX_ACCURACY)) for i in range(MAX_SIZE)]
-        self.assertEqual(interpolation_formula(x, y, MAX_ACCURACY),
-                         output_format.format(MIN_NUMBER + 10 ** (-MAX_ACCURACY), 0))
+            start, stop = MAX_NUMBER - MAX_SIZE / (10 ** accuracy), MAX_NUMBER
+            x = [Decimal(start + i * (stop - start) / MAX_SIZE) for i in range(MAX_SIZE)]
+            y = [Decimal(MAX_NUMBER - 10 ** (-accuracy)) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy),
+                             output_format.format(MAX_NUMBER - 10 ** (-accuracy), 0))
+            y = [Decimal(MIN_NUMBER + 10 ** (-accuracy)) for i in range(MAX_SIZE)]
+            self.assertEqual(interpolation_formula(x, y, accuracy),
+                             output_format.format(MIN_NUMBER + 10 ** (-accuracy), 0))
 
 
 if __name__ == '__main__':
+    print('Testing...')
     unittest.main()
